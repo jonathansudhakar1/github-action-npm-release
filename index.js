@@ -91,16 +91,16 @@ async function main() {
       // What output should we provide?
       // https://docs.github.com/en/rest/reference/repos#get-a-release
       core.info(`Created release ${newVersion}`);
-      core.setOutput('released', true);
-      core.setOutput('html_url', data.html_url);
-      core.setOutput('upload_url', data.upload_url);
-      core.setOutput('release_id', data.id);
-      core.setOutput('release_tag', data.tag_name);
-      core.setOutput('release_name', data.name);
+      core.exportVariable('released', true);
+      core.exportVariable('html_url', data.html_url);
+      core.exportVariable('upload_url', data.upload_url);
+      core.exportVariable('release_id', data.id);
+      core.exportVariable('release_tag', data.tag_name);
+      core.exportVariable('release_name', data.name);
     } catch (error) {
       core.setFailed(`Failed to create release ${newVersion} for ${owner}/${repo}#${process.env.GITHUB_SHA}`);
       core.error(error);
-      core.setOutput('released', true);
+      core.exportVariable('released', true);
       core.debug(JSON.stringify(error.headers));
       core.debug(JSON.stringify(error.request));
       process.exit();
